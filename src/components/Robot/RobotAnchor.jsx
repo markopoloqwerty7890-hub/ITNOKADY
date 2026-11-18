@@ -1,25 +1,99 @@
 import { useEffect, useRef } from "react";
+import { gsap, ScrollTrigger } from "../../animations/gsap";
 import { useRobotAnchor } from "./RobotAnchorProvider";
 import Robot from "./Robot";
-// На десктопе (>=1024px) это невидимый маркер: его размер и позиция
-// определяют, куда должен переместиться единый летающий робот
-// (см. RobotAnchorProvider). На планшете/мобильном летающий робот
-// отключён — вместо этого компонент сам рисует статичную иллюстрацию
-// в потоке страницы, повторяя исходную раскладку макета.
-export default function RobotAnchor({ id, pose, className = "" }) {
-    const ref = useRef(null);
+import {
+    createSmoothScroll,
+    getLeftExitOffset,
+    ROBOT_MOVE_SCROLL_PX,
+} from "./robot-motion";
+
+const easeMove = gsap.parseEase("sine.inOut");
+
+export default function RobotAnchor({ id, pose, className = "", mode = "fly" }) {
+    const markerRef = useRef(null);
+    const localRef = useRef(null);
     const { registerAnchor, unregisterAnchor, isDesktop } = useRobotAnchor();
     useEffect(() => {
-        if (!isDesktop)
+        if (!isDesktop || mode !== "fly") {
             return;
-        const el = ref.current;
-        if (!el)
+        }
+        const el = markerRef.current;
+        if (!el) {
             return;
+        }
         registerAnchor(id, el, pose);
         return () => unregisterAnchor(id);
-    }, [id, pose, isDesktop, registerAnchor, unregisterAnchor]);
-    if (!isDesktop) {
-        return <Robot className={className}/>;
+    }, [id, pose, mode, isDesktop, registerAnchor, unregisterAnchor]);
+    useEffect(() => {
+        if (!isDesktop || mode !== "local") {
+            return;
+        }
+        const robotEl = localRef.current;
+        if (!robotEl) {
+            return;
+        }
+        const section = robotEl.closest("section") || robotEl;
+        const exitX = -getLeftExitOffset();
+        const applyLocalProgress = (scrollY) => {
+            const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+            const sectionBottom = sectionTop + section.offsetHeight;
+            const enterStart = sectionTop - window.innerHeight * 0.75;
+            const enterEnd = enterStart + ROBOT_MOVE_SCROLL_PX;
+            const exitStart = sectionBottom - window.innerHeight * 0.55;
+            const exitEnd = exitStart + ROBOT_MOVE_SCROLL_PX;
+            if (scrollY <= enterStart) {
+                gsap.set(robotEl, { x: exitX, opacity: 0 });
+                return;
+            }
+            if (scrollY < enterEnd) {
+                const u = gsap.utils.clamp(0, 1, (scrollY - enterStart) / ROBOT_MOVE_SCROLL_PX);
+                const eased = easeMove(u);
+                gsap.set(robotEl, {
+                    x: gsap.utils.interpolate(exitX, 0, eased),
+                    opacity: eased,
+                });
+                return;
+            }
+            if (scrollY < exitStart) {
+                gsap.set(robotEl, { x: 0, opacity: 1 });
+                return;
+            }
+            if (scrollY < exitEnd) {
+                const u = gsap.utils.clamp(0, 1, (scrollY - exitStart) / ROBOT_MOVE_SCROLL_PX);
+                const eased = easeMove(u);
+                gsap.set(robotEl, {
+                    x: gsap.utils.interpolate(0, exitX, eased),
+                    opacity: 1 - eased,
+                });
+                return;
+            }
+            gsap.set(robotEl, { x: exitX, opacity: 0 });
+        };
+        const smoothScroll = createSmoothScroll(applyLocalProgress);
+        gsap.set(robotEl, { x: exitX, opacity: 0 });
+        const trigger = ScrollTrigger.create({
+            trigger: section,
+            start: "top bottom",
+            end: "bottom top",
+            onUpdate: () => smoothScroll.setTarget(window.scrollY || window.pageYOffset || 0),
+            onRefresh: () => smoothScroll.jumpTo(window.scrollY || window.pageYOffset || 0),
+        });
+        smoothScroll.jumpTo(window.scrollY || window.pageYOffset || 0);
+        return () => {
+            trigger.kill();
+            smoothScroll.destroy();
+        };
+    }, [isDesktop, mode]);
+    if (mode === "local") {
+        return (
+          <div ref={localRef} className={className}>
+            <Robot className="h-full w-full" />
+          </div>
+        );
     }
-    return <div ref={ref} className={`invisible ${className}`} aria-hidden="true"/>;
+    if (!isDesktop) {
+        return <Robot className={className} />;
+    }
+    return <div ref={markerRef} className={`invisible ${className}`} aria-hidden="true" />;
 }

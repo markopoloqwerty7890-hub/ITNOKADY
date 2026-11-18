@@ -1,6 +1,6 @@
-import RobotAnchor from "../../components/Robot/RobotAnchor";
 import AnimatedSection from "../../components/AnimatedSection/AnimatedSection";
 import { STATS } from "../../constants/stats";
+
 export default function Stats() {
     return (<section id="stats">
       <div className="bg-brand-dark py-12">
@@ -11,10 +11,6 @@ export default function Stats() {
               <span className="text-sm text-white/60">{label}</span>
             </div>))}
         </AnimatedSection>
-      </div>
-
-      <div className="container-page flex justify-center py-14">
-        <RobotAnchor id="stats" pose="presenting" className="h-44 w-44"/>
       </div>
     </section>);
 }

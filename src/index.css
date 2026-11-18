@@ -13,18 +13,24 @@
 .robot-figure {
   position: absolute;
   inset: 0;
-  transform: translateY(calc(var(--walk-bob, 0) * -3%))
-    rotate(calc(var(--walk-swing, 0) * -2deg));
+  transform: translateY(calc(var(--walk-bob, 0) * -1.5%))
+    rotate(calc(var(--walk-swing, 0) * -1deg));
+  transition: transform 160ms linear;
+  will-change: transform;
 }
 
 .robot-arm-left {
   transform-origin: 78% 8%;
-  transform: rotate(calc(var(--walk-swing, 0) * 26deg));
+  transform: rotate(calc(var(--walk-swing, 0) * 12deg));
+  transition: transform 160ms linear;
+  will-change: transform;
 }
 
 .robot-arm-right {
   transform-origin: 22% 8%;
-  transform: rotate(calc(var(--walk-swing, 0) * -26deg));
+  transform: rotate(calc(var(--walk-swing, 0) * -12deg));
+  transition: transform 160ms linear;
+  will-change: transform;
 }
 
 @keyframes robot-ear-wiggle-left {

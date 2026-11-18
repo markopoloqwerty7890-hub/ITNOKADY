@@ -9,7 +9,7 @@ export default function Testimonials() {
 
       <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[0.8fr_1.6fr]">
         <div className="flex justify-center">
-          <RobotAnchor id="testimonials" pose="wave" className="h-52 w-52"/>
+          <RobotAnchor id="testimonials" mode="local" pose="wave" className="h-52 w-52"/>
         </div>
 
         <AnimatedSection className="grid grid-cols-1 gap-5 sm:grid-cols-2" stagger={0.1}>

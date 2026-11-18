@@ -106,6 +106,29 @@
   will-change: transform;
 }
 
+.robot-eyelid {
+  position: absolute;
+  z-index: 2;
+  border-radius: 50%;
+  background: #29303a;
+  transform: scaleY(0.08);
+  transform-origin: 50% 15%;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 90ms ease-in,
+    opacity 60ms linear;
+  will-change: transform, opacity;
+}
+
+.robot-eyelid.is-closed {
+  transform: scaleY(1);
+  opacity: 1;
+  transition:
+    transform 70ms ease-out,
+    opacity 40ms linear;
+}
+
 @keyframes robot-ear-wiggle-left {
   0%,
   100% {

@@ -13,7 +13,7 @@ export function useContactForm() {
             return;
         setStatus("submitting");
         try {
-            // Backend пока не подключён — запрос уйдёт на VITE_API_URL,
+            // Backend пока не подключён — запрос уйдёт на NEXT_PUBLIC_API_URL,
             // как только появится реальный эндпоинт /applications.
             await submitApplication(values);
             setStatus("success");

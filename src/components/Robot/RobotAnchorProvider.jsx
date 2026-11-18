@@ -1,3 +1,5 @@
+"use client";
+
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { gsap, ScrollTrigger } from "../../animations/gsap";
 import { useMediaQuery } from "../../hooks/useMediaQuery";

@@ -1,3 +1,5 @@
+"use client";
+
 import { useScrollReveal } from "../../hooks/useScrollReveal";
 // Обёртка для scroll-reveal: прямые дети плавно появляются
 // (fade + slide-up) со сдвигом по времени, когда блок входит

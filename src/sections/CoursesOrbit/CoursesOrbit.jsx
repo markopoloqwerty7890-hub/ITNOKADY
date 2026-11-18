@@ -1,16 +1,25 @@
+"use client";
+
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
 import RobotAnchor from "../../components/Robot/RobotAnchor";
 import AnimatedSection from "../../components/AnimatedSection/AnimatedSection";
 import { ORBIT_COURSES } from "../../constants/courses";
+import { getAssetSrc } from "../../lib/asset-src";
 // Радиус орбиты в процентах от контейнера — так раскладка
 // остаётся пропорциональной на любом размере экрана.
 const ORBIT_RADIUS_PERCENT = 43;
+const POSITION_PRECISION = 4;
+
+function roundPercent(value) {
+  return Number(value.toFixed(POSITION_PRECISION));
+}
+
 function polarToPercent(angleDeg, radius) {
-    const rad = (angleDeg * Math.PI) / 180;
-    return {
-        left: `${50 + radius * Math.sin(rad)}%`,
-        top: `${50 - radius * Math.cos(rad)}%`,
-    };
+  const rad = (angleDeg * Math.PI) / 180;
+  return {
+    left: `${roundPercent(50 + radius * Math.sin(rad))}%`,
+    top: `${roundPercent(50 - radius * Math.cos(rad))}%`,
+  };
 }
 export default function CoursesOrbit() {
     return (<section id="courses" className="container-page py-20">
@@ -28,7 +37,7 @@ export default function CoursesOrbit() {
             const position = polarToPercent(angle, ORBIT_RADIUS_PERCENT);
             return (<button key={id} type="button" title={label} aria-label={label} className="group absolute flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl bg-white text-brand-red shadow-[0_4px_16px_rgba(0,0,0,0.08)] transition-transform duration-200 hover:scale-110 sm:h-[4.5rem] sm:w-[4.5rem]" style={position}>
                   <span className="orbit-counter-spin">
-                    <img src={icon} alt="" className="h-8 w-8 object-contain sm:h-9 sm:w-9"/>
+                    <img src={getAssetSrc(icon)} alt="" className="h-8 w-8 object-contain sm:h-9 sm:w-9"/>
                   </span>
                 </button>);
         })}

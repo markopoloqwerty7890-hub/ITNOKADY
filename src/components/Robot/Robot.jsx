@@ -3,6 +3,7 @@ import robotNeutralArmLeft from "../../assets/robot/robot-neutral-arm-left.svg";
 import robotNeutralArmRight from "../../assets/robot/robot-neutral-arm-right.svg";
 import robotNeutralEarLeft from "../../assets/robot/robot-neutral-ear-left.svg";
 import robotNeutralEarRight from "../../assets/robot/robot-neutral-ear-right.svg";
+import { getAssetSrc } from "../../lib/asset-src";
 
 const CANVAS_WIDTH = 244;
 const CANVAS_HEIGHT = 268;
@@ -69,7 +70,7 @@ export default function Robot({ className = "" }) {
         {ROBOT_PARTS.map((part) => (
           <img
             key={part.id}
-            src={part.src}
+            src={getAssetSrc(part.src)}
             alt=""
             className={`absolute max-w-none ${part.className ?? ""}`}
             style={{

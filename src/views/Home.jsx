@@ -1,3 +1,5 @@
+"use client";
+
 import Hero from "../components/Hero";
 import CoursesOrbit from "../sections/CoursesOrbit/CoursesOrbit";
 import WhyUs from "../sections/WhyUs/WhyUs";
@@ -7,7 +9,7 @@ import ContactForm from "../sections/ContactForm/ContactForm";
 import { RobotAnchorProvider } from "../components/Robot/RobotAnchorProvider";
 
 export default function Home() {
-    return (
+  return (
     <RobotAnchorProvider>
       <Hero />
       <CoursesOrbit />
@@ -16,5 +18,5 @@ export default function Home() {
       <Testimonials />
       <ContactForm />
     </RobotAnchorProvider>
-    );
+  );
 }

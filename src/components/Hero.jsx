@@ -1,7 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import AnimatedSection from "../components/AnimatedSection/AnimatedSection";
+"use client";
+
+import Link from "next/link";
+import AnimatedSection from "./AnimatedSection/AnimatedSection";
 import arrowIcon from "../assets/arrow.png";
+import { getAssetSrc } from "../lib/asset-src";
 
 export default function Hero({
   badge = "Международная IT-академия",
@@ -21,6 +23,8 @@ export default function Hero({
   icon = arrowIcon,
   rightContent = null,
 }) {
+  const resolvedIcon = getAssetSrc(icon);
+
   return (
     <section id="hero" className="container-page py-16 sm:py-20">
       <AnimatedSection
@@ -45,13 +49,13 @@ export default function Hero({
           )}
 
           <Link
-            to={buttonLink}
+            href={buttonLink}
             className="inline-flex items-center justify-between bg-[#E31B23] text-white font-medium text-lg px-8 py-4 rounded-xl shadow-lg hover:bg-red-700 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
           >
             <span>{buttonText}</span>
-            {icon && (
+            {resolvedIcon && (
               <img
-                src={icon}
+                src={resolvedIcon}
                 alt="arrow"
                 className="w-5 h-5 object-contain ml-4"
               />
@@ -59,11 +63,10 @@ export default function Hero({
           </Link>
         </div>
 
-        {/* Right side container */}
         {rightContent ? (
           rightContent
         ) : (
-          <div className="w-[580px] h-[420px] bg-[#D9D9D9] rounded-xl shadow-inner max-w-full"></div>
+          <div className="w-[580px] h-[420px] bg-[#D9D9D9] rounded-xl shadow-inner max-w-full" />
         )}
       </AnimatedSection>
     </section>

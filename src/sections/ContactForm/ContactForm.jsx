@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
 import RobotAnchor from "../../components/Robot/RobotAnchor";
 import AnimatedSection from "../../components/AnimatedSection/AnimatedSection";

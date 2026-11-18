@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef } from "react";
 import { gsap, ScrollTrigger } from "../../animations/gsap";
 import { useRobotAnchor } from "./RobotAnchorProvider";

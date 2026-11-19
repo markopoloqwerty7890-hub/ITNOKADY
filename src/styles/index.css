@@ -1,8 +1,6 @@
-@import "tailwindcss";
-
 @theme {
   /* Brand palette — взято с макета IT NOKADY */
-  --color-brand-red: #cc1329;
+  --color-brand-red: #d30b22;
   --color-brand-red-dark: #a10f21;
   --color-brand-dark: #14161c;
   --color-brand-dark-soft: #1c1e26;

@@ -1,4 +1,4 @@
-const baseStyles = "inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-red";
+const baseStyles = "inline-flex h-[65px] items-center justify-center gap-2 rounded-[5px] px-[10px] py-0 text-[20px] font-medium transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-red";
 const variantStyles = {
     primary: "bg-brand-red text-white hover:bg-brand-red-dark",
     outline: "border border-brand-red text-brand-red hover:bg-brand-red hover:text-white",

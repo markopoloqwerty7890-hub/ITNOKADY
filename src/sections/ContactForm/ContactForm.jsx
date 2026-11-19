@@ -10,44 +10,41 @@ export default function ContactForm() {
   const { values, updateField, handleSubmit, status } = useContactForm();
 
   return (
-    <section 
-      id="contact" 
-      className="w-full bg-white font-['Roboto'] min-h-[calc(100vh-140px)] py-16 sm:py-24 lg:py-32 px-4 sm:px-8 lg:px-20 max-w-7xl mx-auto"
+    <section
+      id="contact"
+      className="w-full bg-white px-6 py-16 font-['Roboto'] sm:px-8 lg:px-12 lg:py-20"
     >
-      {/* Outer 1-Column Page Grid for Title and Content */}
-      <div className="grid grid-cols-1 gap-8 sm:gap-12 w-full">
-        
-        {/* Animated Title Header */}
-        <AnimatedSection className="text-center" y={16}>
-          <SectionTitle 
-            eyebrow="ЗАПИСАТЬСЯ НА КУРС" 
-            title="Оставить заявку" 
-            align="center"
-          />
-        </AnimatedSection>
-
-        {/* 2-Column Responsive Inner Grid (Robot + Form) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 items-center max-w-5xl mx-auto w-full">
+      <div className="mx-auto grid w-full max-w-[1067px] grid-cols-1 items-center gap-10 min-[1180px]:translate-x-[15px] min-[1180px]:grid-cols-[250px_537px] min-[1180px]:gap-[280px]">
           
           {/* Column 1: Animated Robot Anchor */}
-          <AnimatedSection className="w-full flex justify-center" y={16}>
+          <AnimatedSection className="flex h-[235px] w-full justify-center min-[1180px]:justify-start" y={16}>
             <RobotAnchor
               id="contact"
               pose="neutral"
-              className="w-[180px] h-[200px] sm:w-[241px] sm:h-[268px] object-contain"
+              className="h-[235px] w-[250px] object-contain"
             />
           </AnimatedSection>
 
-          {/* Column 2: Animated Form */}
-          <AnimatedSection className="w-full max-w-md mx-auto md:mx-0" y={24}>
-            <form className="grid grid-cols-1 gap-4" onSubmit={handleSubmit} noValidate>
+        <div className="w-full">
+            <AnimatedSection className="mb-[30px] text-center" y={16}>
+              <SectionTitle
+                eyebrow="ЗАПИСАТЬСЯ НА КУРС"
+                title="Оставить заявку"
+                align="center"
+                eyebrowClassName="text-[18px] font-medium tracking-normal text-[#D30B22]"
+                titleClassName="text-[36px] font-medium leading-normal text-black sm:text-[36px]"
+              />
+            </AnimatedSection>
+
+          <AnimatedSection className="w-full" y={24}>
+            <form className="grid grid-cols-1 gap-[30px]" onSubmit={handleSubmit} noValidate>
               <div>
                 <input 
                   type="text" 
                   placeholder="Ваше имя" 
                   value={values.name}
                   onChange={(e) => updateField("name", e.target.value)}
-                  className="w-full px-4 py-3 sm:py-3.5 bg-white border border-gray-300 rounded-lg text-black placeholder-gray-400 focus:outline-none focus:border-[#E31B23] transition"
+                  className="h-[65px] w-full rounded-[5px] border border-[rgba(117,117,117,0.4)] bg-white px-[10px] text-[20px] text-black placeholder-[rgba(0,0,0,0.6)] transition focus:border-[#D30B22] focus:outline-none"
                   required
                 />
               </div>
@@ -58,7 +55,7 @@ export default function ContactForm() {
                   placeholder="Телефон" 
                   value={values.phone}
                   onChange={(e) => updateField("phone", e.target.value)}
-                  className="w-full px-4 py-3 sm:py-3.5 bg-white border border-gray-300 rounded-lg text-black placeholder-gray-400 focus:outline-none focus:border-[#E31B23] transition"
+                  className="h-[65px] w-full rounded-[5px] border border-[rgba(117,117,117,0.4)] bg-white px-[10px] text-[20px] text-black placeholder-[rgba(0,0,0,0.6)] transition focus:border-[#D30B22] focus:outline-none"
                   required
                 />
               </div>
@@ -67,9 +64,9 @@ export default function ContactForm() {
                 <select 
                   value={values.course}
                   onChange={(e) => updateField("course", e.target.value)}
-                  className={`w-full px-4 py-3 sm:py-3.5 bg-white border border-gray-300 rounded-lg transition ${
+                  className={`h-[65px] w-full rounded-[5px] border border-[rgba(117,117,117,0.4)] bg-white px-[10px] text-[20px] transition focus:border-[#D30B22] focus:outline-none ${
                     values.course ? "text-black" : "text-gray-400"
-                  } focus:outline-none focus:border-[#E31B23]`}
+                  }`}
                 >
                   <option value="">Выберите курс</option>
                   {FOOTER_COURSE_LINKS.map((course) => (
@@ -82,7 +79,7 @@ export default function ContactForm() {
 
               <Button 
                 type="submit" 
-                className="w-full bg-[#E31B23] text-white font-medium py-3.5 rounded-lg hover:bg-red-700 transition shadow-md mt-2"
+                className="w-full bg-[#D30B22] text-[20px] font-medium text-white hover:bg-[#bd091e]"
                 disabled={status === "submitting"}
               >
                 {status === "submitting" ? "Отправляем..." : "Отправить заявку"}
@@ -90,23 +87,22 @@ export default function ContactForm() {
 
               {/* Dynamic Feedback Messages */}
               {status === "success" && (
-                <p className="text-center text-sm font-medium mt-2 text-green-600">
+                <p className="mt-[22px] text-center text-[18px] font-medium text-green-600">
                   Заявка отправлена! Мы скоро свяжемся с вами.
                 </p>
               )}
               {status === "error" && (
-                <p className="text-center text-sm font-medium mt-2 text-[#E31B23]">
+                <p className="mt-[22px] text-center text-[18px] font-medium text-[#D30B22]">
                   Не удалось отправить заявку. Попробуйте еще раз.
                 </p>
               )}
               {status === "idle" && (
-                <p className="text-center text-black text-sm font-medium mt-2">
+                <p className="mt-[22px] text-center text-[18px] font-medium text-black">
                   Мы свяжемся с вами в ближайшее время!
                 </p>
               )}
             </form>
           </AnimatedSection>
-
         </div>
 
       </div>

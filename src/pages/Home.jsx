@@ -9,7 +9,11 @@ import { RobotAnchorProvider } from "../components/Robot/RobotAnchorProvider";
 export default function Home() {
     return (
     <RobotAnchorProvider>
-      <Hero />
+      <Hero
+        badge="Международная IT-академия"
+        title={<>ТВОЙ ПУТЬ В IT<br />НАЧИНАЕТСЯ<br />ЗДЕСЬ</>}
+        description="Практическое обучение по международным стандартам от экспертов из ведущих IT-компаний мира"
+      />
       <CoursesOrbit />
       <WhyUs />
       <Stats />

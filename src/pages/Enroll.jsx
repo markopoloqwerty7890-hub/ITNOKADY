@@ -35,42 +35,41 @@ export default function Enroll({
     }
   };
 
-  return (
-    <div className="w-full bg-white font-['Roboto'] min-h-[calc(100vh-140px)] flex flex-col justify-start py-16 sm:py-24 md:py-32">
-      <div className="w-full px-6 sm:px-12 md:px-20 max-w-7xl mx-auto">
-        
-        {/* Header */}
-        <div className="text-center mb-12">
-          {eyebrow && (
-            <span className="text-[#E31B23] text-sm font-bold uppercase tracking-wider block mb-2">
-              {eyebrow}
-            </span>
-          )}
-          {title && (
-            <h1 className="text-4xl md:text-5xl font-extrabold text-black">
-              {title}
-            </h1>
-          )}
-        </div>
+  const hasRobot = showRobot && robotImage;
+  const desktopLayoutClass = hasRobot
+    ? 'min-[1180px]:translate-x-[15px] min-[1180px]:grid-cols-[250px_537px] min-[1180px]:gap-[280px]'
+    : 'min-[1180px]:grid-cols-[minmax(0,537px)] min-[1180px]:justify-center';
 
-        {/* Robot and Form Container */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-12 lg:gap-16 max-w-5xl mx-auto">
-          
-          {/* Mascot Image */}
-          {showRobot && robotImage && (
-            <div className="w-full md:w-1/2 flex justify-center">
-              <img 
-                src={robotImage} 
-                alt="Mascot" 
-                style={{ width: '241px', height: '268px' }}
-                className="object-contain" 
-              />
-            </div>
-          )}
+  return (
+    <div className="w-full bg-white font-['Roboto'] py-10 sm:py-16">
+      <div className={`mx-auto grid w-full max-w-[1067px] grid-cols-1 items-center gap-10 px-6 sm:px-8 min-[1180px]:px-0 ${desktopLayoutClass}`}>
+        {hasRobot && (
+          <div className="flex w-full justify-center min-[1180px]:justify-start">
+            <img
+              src={robotImage}
+              alt="Mascot"
+              className="h-[235px] w-[250px] object-contain"
+            />
+          </div>
+        )}
+
+        <div className="w-full">
+          <div className="mb-[30px] text-center">
+            {eyebrow && (
+              <span className="mb-2 block text-[18px] font-medium uppercase leading-normal text-[#D30B22]">
+                {eyebrow}
+              </span>
+            )}
+            {title && (
+              <h1 className="text-[36px] font-medium leading-normal text-black">
+                {title}
+              </h1>
+            )}
+          </div>
 
           {/* Form */}
-          <div className="w-full md:w-1/2 max-w-md">
-            <form className="space-y-4" onSubmit={handleSubmit}>
+          <div className="w-full">
+            <form className="space-y-[30px]" onSubmit={handleSubmit}>
               <div>
                 <input 
                   type="text" 
@@ -78,7 +77,7 @@ export default function Enroll({
                   placeholder="Ваше имя" 
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full px-4 py-3.5 bg-white border border-gray-300 rounded-lg text-black placeholder-gray-400 focus:outline-none focus:border-[#E31B23] transition"
+                  className="h-[65px] w-full rounded-[5px] border border-[rgba(117,117,117,0.4)] bg-white px-[10px] text-[20px] text-black placeholder-[rgba(0,0,0,0.6)] transition focus:border-[#D30B22] focus:outline-none"
                   required
                 />
               </div>
@@ -90,7 +89,7 @@ export default function Enroll({
                   placeholder="Телефон" 
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full px-4 py-3.5 bg-white border border-gray-300 rounded-lg text-black placeholder-gray-400 focus:outline-none focus:border-[#E31B23] transition"
+                  className="h-[65px] w-full rounded-[5px] border border-[rgba(117,117,117,0.4)] bg-white px-[10px] text-[20px] text-black placeholder-[rgba(0,0,0,0.6)] transition focus:border-[#D30B22] focus:outline-none"
                   required
                 />
               </div>
@@ -100,7 +99,7 @@ export default function Enroll({
                   name="course"
                   value={formData.course}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3.5 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-[#E31B23] transition ${
+                  className={`h-[65px] w-full rounded-[5px] border border-[rgba(117,117,117,0.4)] bg-white px-[10px] text-[20px] transition focus:border-[#D30B22] focus:outline-none ${
                     formData.course ? 'text-black' : 'text-gray-400'
                   }`}
                   required
@@ -120,21 +119,20 @@ export default function Enroll({
 
               <button 
                 type="submit" 
-                className="w-full bg-[#E31B23] text-white font-medium py-3.5 rounded-lg hover:bg-red-700 transition shadow-md mt-2 active:scale-[0.99]"
+                className="h-[65px] w-full rounded-[5px] bg-[#D30B22] text-[20px] font-medium text-white transition hover:bg-[#bd091e] active:scale-[0.99]"
               >
                 {buttonText}
               </button>
             </form>
 
             {subtext && (
-              <p className="text-center text-black text-sm font-medium mt-4">
+              <p className="mt-[45px] text-center text-[18px] font-medium text-black">
                 {subtext}
               </p>
             )}
           </div>
 
         </div>
-
       </div>
     </div>
   );
